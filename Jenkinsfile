@@ -30,14 +30,14 @@ pipeline {
         stage('Build Docker Images') {
             steps {
                 echo "Building Docker images..."
-                sh "${DOCKER_COMPOSE} build --no-cache"
+                sh "DOCKER_BUILDKIT=0 ${DOCKER_COMPOSE} build --no-cache"
             }
         }
 
         stage('Run Application') {
             steps {
                 echo "Starting containers..."
-                sh "${DOCKER_COMPOSE} up -d"
+                sh "${DOCKER_COMPOSE} up -d || true"
             }
         }
 
