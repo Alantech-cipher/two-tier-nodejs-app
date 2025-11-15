@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Message App</title>
+
+  <style>
+    /* ---------- RESET ---------- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
+    }
+
+    /* ---------- LIGHT BACKGROUND ---------- */
+    body {
+      background: linear-gradient(135deg, #e8f3ff, #ffffff);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      color: #333;
+    }
+
+    /* ---------- CARD (LIGHT DEVOPS STYLE) ---------- */
+    .container {
+      width: 430px;
+      padding: 2.3rem;
+      border-radius: 20px;
+
+      background: #ffffff;
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      backdrop-filter: blur(4px);
+
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+
+      text-align: center;
+      transition: 0.3s ease;
+    }
+
+    .container:hover {
+      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.18);
+      transform: translateY(-3px);
+    }
+
+    /* ---------- TITLE ---------- */
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 1.2rem;
+
+      color: #3a4fa3;
+      text-shadow: 0 0 4px rgba(58, 79, 163, 0.2);
+      letter-spacing: 1px;
+    }
+
+    /* ---------- INPUT ---------- */
+    input[name="text"] {
+      width: 100%;
+      padding: 1rem;
+      font-size: 1rem;
+
+      background: #f3f6ff;
+      border: 2px solid #c5cff8;
+      color: #333;
+      border-radius: 12px;
+
+      outline: none;
+      transition: 0.3s ease;
+    }
+
+    input[name="text"]:focus {
+      border-color: #6a82ff;
+      box-shadow: 0 0 8px rgba(106, 130, 255, 0.4);
+      background: #eef1ff;
+    }
+
+    /* ---------- BUTTON ---------- */
+    button {
+      margin-top: 1rem;
+      width: 100%;
+      padding: 1rem;
+      cursor: pointer;
+
+      background: linear-gradient(135deg, #6a82ff, #4c6ef5);
+      border: none;
+      border-radius: 12px;
+      color: #fff;
+
+      font-weight: 700;
+      font-size: 1rem;
+
+      box-shadow: 0 4px 15px rgba(76, 110, 245, 0.25);
+      transition: 0.3s ease;
+    }
+
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(76, 110, 245, 0.35);
+    }
+
+    /* ---------- MESSAGE LIST ---------- */
+    ul {
+      list-style: none;
+      margin-top: 1.5rem;
+      max-height: 240px;
+      overflow-y: auto;
+      padding-right: 6px;
+    }
+
+    li {
+      background: #f3f6ff;
+      color: #333;
+
+      border-left: 4px solid #6a82ff;
+      padding: 1rem;
+      margin-bottom: 0.8rem;
+      border-radius: 8px;
+
+      font-family: "Consolas", monospace;
+      font-size: 0.95rem;
+
+      box-shadow: 0 0 10px rgba(106, 130, 255, 0.1);
+      animation: fadeIn 0.4s ease;
+      word-break: break-word;
+    }
+
+    /* Scrollbar */
+    ul::-webkit-scrollbar { width: 6px; }
+    ul::-webkit-scrollbar-thumb {
+      background: #6a82ff;
+      border-radius: 10px;
+    }
+
+    /* Fade animation */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Footer */
+    footer {
+      margin-top: 1.2rem;
+      font-size: 0.9rem;
+      color: #6470b7;
+      text-shadow: 0 0 4px rgba(100, 112, 183, 0.3);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h1>📩 Message Board</h1>
+
+    <form action="/add" method="POST">
+      <input name="text" placeholder="Write a message..." required />
+      <button type="submit">Send Message</button>
+    </form>
+
+    <ul id="messages">
+      <!-- Messages appear here -->
+    </ul>
+
+    <footer>Made with ❤️ using Node.js + MongoDB</footer>
+  </div>
+</body>
+</html>
+
