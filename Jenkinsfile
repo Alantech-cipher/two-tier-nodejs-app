@@ -2,7 +2,8 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_COMPOSE = "docker-compose"
+        // Use Docker Compose v2 syntax (CLI plugin)
+        DOCKER_COMPOSE = "docker compose"
     }
 
     stages {
@@ -24,31 +25,35 @@ pipeline {
         stage('Build Docker Images') {
             steps {
                 echo "Building Docker images..."
-                sh "${DOCKER_COMPOSE} build"
+                sh "${DOCKER_COMPOSE} build --no-cache"
             }
         }
 
         stage('Run Application') {
             steps {
+                echo "Stopping old containers (if any)..."
+                sh "${DOCKER_COMPOSE} down --remove-orphans -v || true"
+
                 echo "Starting containers..."
-                sh "${DOCKER_COMPOSE} up -d --remove-orphans"
+                sh "${DOCKER_COMPOSE} up -d"
             }
         }
 
         stage('Verify Deployment') {
             steps {
-                echo "Showing running containers..."
-                sh 'docker ps'
+                echo "Listing running containers..."
+                sh "docker ps"
             }
         }
     }
 
     post {
         success {
-            echo "🎉 Deployment Successful!"
+            echo "✅ Deployment Successful!"
         }
         failure {
-            echo "❌ Deployment Failed!"
+            echo "❌ Deployment Failed! Cleaning up..."
+            sh "${DOCKER_COMPOSE} down --remove-orphans -v || true"
         }
     }
 }
