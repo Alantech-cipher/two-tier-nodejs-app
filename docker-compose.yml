@@ -1,13 +1,16 @@
 services:
   backend:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile
     container_name: nodejs-backend
     ports:
       - "3000:3000"
     depends_on:
       - mongo
-    volumes:
-      - .:/app
+    # Remove the bind mount for Jenkins build to avoid Compose V2 BuildKit issues
+    # volumes:
+    #   - .:/app
 
   mongo:
     image: mongo:latest
@@ -19,4 +22,4 @@ services:
 
 volumes:
   mongo-data:
-    
+
